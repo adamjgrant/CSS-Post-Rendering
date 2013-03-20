@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="legacy.css" />
+    <link rel="stylesheet" href="dummy.css" />
   </head>
   <body>
     
@@ -29,7 +30,7 @@
         </article>
       </section>
 
-      <h1>Third stylesheet loads images via Base64</h1>
+      <h1 style="text-decoration: line-through">Third stylesheet loads images via Base64</h1>
       <section class="row-fluid">
         <article class="span4">
           <div class="pr triad davinci"></div>
@@ -75,50 +76,13 @@
 
     <footer>
       <div class="container">
-        <a href="index-legacy.html" class="btn btn-primary">Legacy (all css in head)</a>
+        <a href="index.html" class="btn btn-primary">Load Post-Rendered</a>
         <a href="https://github.com/ajkochanowicz/CSS-Post-Rendering" class="btn">GitHub</a>
-        <a href="index.html" class="pull-right btn btn-warning">Run au natural</a>
+        <a href="index-simulated.html" class="pull-right btn btn-warning">Simulate DOM delays</a>
       </div>
     </footer>
-
-    <!--
-    <link rel="stylesheet" href="post-render.css" />
-    <link rel="stylesheet" href="post-render2.css" />
-    <link rel="stylesheet" href="dummy.css" />
-    -->
-
-    <script type="text/javascript">
-      // Simulating a delay of a very large, second stylesheet for example.
-      // In actual usage, just import the css files as commented out above
-      setTimeout(function() {
-         var r = Math.floor(Math.random()*10000)
-         var d = document; // shortcut
-         var body = d.getElementsByTagName('body')[0];
-         var link  = d.createElement('link');
-         link.rel  = 'stylesheet';
-         link.type = 'text/css';
-         link.href = 'post-render.css?v='+ r;
-         link.media = 'all';
-         body.appendChild(link);
-         console.log('simulated really big css file loaded.')
-      }, 2000);
-    </script>
-
-    <script type="text/javascript">
-      // Simulating a delay of a very large, second stylesheet for example.
-      // In actual usage, just import css file via html before </body>
-      setTimeout(function() {
-         var r = Math.floor(Math.random()*10000)
-         var d = document; // shortcut
-         var body = d.getElementsByTagName('body')[0];
-         var link  = d.createElement('link');
-         link.rel  = 'stylesheet';
-         link.type = 'text/css';
-         link.href = 'post-render2.css?v='+ r;
-         link.media = 'all';
-         body.appendChild(link);
-         console.log('simulated really big css file loaded.')
-      }, 3000);
-    </script>
+    <script src="dummy1.js"></script>
+    <script src="dummy2.js"></script>
+    <script src="dummy3.js"></script>
   </body>
 </html>
