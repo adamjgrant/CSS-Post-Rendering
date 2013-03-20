@@ -2,7 +2,10 @@
 .renoir { background-image: url('renoir.png'); }
 .davinci { background-image: url('davinci.png'); }
 .monet { background-image: url('monet.png'); }
-.pr { background-size: 100%; }
+.pr { 
+   background-size: 100%; 
+   background-position: 50%;
+}
 
 header {
   margin: 30px 0;
