@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    
+    <div class="container">
+       <header class="row-fluid">
+         <hgroup class="span12">
+           <h1>CSS Post-Rendering</h1>
+           <p class="lead">CSS trick for optimized page loading. (Proof of concept)</p>
+         </hgroup>
+       </header>
+
+      <section class="row-fluid">
+        <article class="span4">
+          <ul>
+            <li>In the <code>head</code>, This page loads <code>main.css</code>, a small CSS file with just what we need.</li>
+            <li><code>main.css</code> hides and styles <code>.pr</code> elements with loading indicators.</li>
+            <li>The larger css files reset <code>.pr</code> with additional styles and image data just before <code>&lt;/body&gt;</code>.</li>
+          </ul>
+          <p><strong>Result:</strong> Page loads with adequate styling incredibly fast.</p>
+          <p>Users can immediately engage with your site, supplementary styles and detail load shortly thereafter.</p>
+        </article>
+        <article class="span8">
+          <div class="featured-img pr"></div>
+          <p><em>This image uses the <code>.pr</code> class to render a placeholder image before the actual image is called from <code>post-render.css</code></em></p>
+        </article>
+      </section>
+
+      <h1>Third stylesheet loads images via Base64</h1>
+      <section class="row-fluid">
+        <article class="span4">
+          <div class="pr triad davinci"></div>
+          <h4>DaVinci</h4>
+          <p>None of these images actually exist as files on the server.</p>
+        </article>
+        <article class="span4">
+          <div class="pr triad renoir"></div>
+          <h4>Renoir</h4>
+          <p>Instead, they are encoded in a Base64 strings.</p>
+        </article>
+        <article class="span4">
+          <div class="pr triad monet"></div>
+          <h4>Monet</h4>
+          <p>These string set the background image of each of the above containers in the 3rd stylesheet.</p>
+        </article>
+      </section>
+
+      <h1>Supplementary styles hidden within <code>.pr</code> section</h1>
+      <section class="row-fluid">
+        <article class="span4 pr">
+          <p class="style1">Hello world</p>
+          <p class="style2">Hello world</p>
+          <p class="style3">Hello world</p>
+          <p class="style4">Hello world</p>
+          <p class="style5">Hello world</p>
+          <p class="style6">Hello world</p>
+        </article>
+        <article class="span8">
+          <h2>Cleanly delaying supplementary styles</h2>
+          <p><em>Refresh this page again to test</em></p>
+          <ul>
+            <li>Loading extra style in later stylesheets can create jagged animations from unstyled to styled.</li>
+            <li>Nesting these <code>p</code> elements under the <code>.pr</code> class hides them with loading indicator</li>
+            <li>Styles are loaded at the same time the rules for <code>.pr</code> are reset.</li>
+            <li>Great for styles for specific elements which do not appear on every page.</li>
+            <li>Example: Styles for a private list of contacts probably won't appear until after the user has viewed at least one page on your site. In which case, they've already lazy-loaded the styles in time to view them.</li>
+          </ul>
+        </article>
+      </section>
+
+    </div>
+
+    <footer>
+      <div class="container">
+        <a href="index.html" class="btn btn-primary">Run au natural</a>
+        <a href="#" class="btn">GitHub</a>
+      </div>
+    </footer>
+
+    <!--
+    <link rel="stylesheet" href="post-render.css" />
+    <link rel="stylesheet" href="post-render2.css" />
+    -->
+
+    <script type="text/javascript">
+      // Simulating a delay of a very large, second stylesheet for example.
+      // In actual usage, just import the css files as commented out above
+      setTimeout(function() {
+         var r = Math.floor(Math.random()*10000)
+         var d = document; // shortcut
+         var body = d.getElementsByTagName('body')[0];
+         var link  = d.createElement('link');
+         link.rel  = 'stylesheet';
+         link.type = 'text/css';
+         link.href = 'post-render.css?v='+ r;
+         link.media = 'all';
+         body.appendChild(link);
+         console.log('simulated really big css file loaded.')
+      }, 2000);
+    </script>
+
+    <script type="text/javascript">
+      // Simulating a delay of a very large, second stylesheet for example.
+      // In actual usage, just import css file via html before </body>
+      setTimeout(function() {
+         var r = Math.floor(Math.random()*10000)
+         var d = document; // shortcut
+         var body = d.getElementsByTagName('body')[0];
+         var link  = d.createElement('link');
+         link.rel  = 'stylesheet';
+         link.type = 'text/css';
+         link.href = 'post-render2.css?v='+ r;
+         link.media = 'all';
+         body.appendChild(link);
+         console.log('simulated really big css file loaded.')
+      }, 3000);
+    </script>
+  </body>
+</html>
